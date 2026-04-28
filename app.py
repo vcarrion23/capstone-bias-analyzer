@@ -107,7 +107,7 @@ if not st.session_state.authenticated:
     st.stop() 
 
 # ---------------------------------------------------------
-# 3. Load Models & Dictionaries (CLEAN VERSION)
+# 3. Load Models & Dictionaries
 # ---------------------------------------------------------
 @st.cache_resource
 def load_model():
@@ -184,14 +184,16 @@ if "analysis_done" not in st.session_state:
     st.session_state.total_sentences = 0
 
 if st.button("Analyze Review", type="primary"):
-    if user_input.strip():
+    # QUALITY GATE 1: Stop short junk in the main review box
+    word_count = len(user_input.strip().split())
+    if word_count < 10:
+        st.error(f"⚠️ This review is too short ({word_count} words). Please enter a complete, professional performance review (at least 10 words) for analysis.")
+    else:
         with st.spinner("Running deep sentence tokenization and scanning lexicon..."):
             obs, total = analyze_long_review(user_input)
             st.session_state.observations = obs
             st.session_state.total_sentences = total
             st.session_state.analysis_done = True
-    else:
-        st.info("Please enter some text to analyze.")
 
 # ---------------------------------------------------------
 # 6. Premium Analytics Dashboard & Pedagogy Flow
@@ -252,9 +254,10 @@ if st.session_state.analysis_done:
         justification = st.text_area("What specific, observable business behaviors led you to use these words?", height=120)
         
         if justification:
-            # THE NEW QUALITY GATE: Stop "meow" and single-word spam
-            if len(justification.split()) < 5:
-                st.warning("⚠️ Please provide a complete, meaningful explanation (at least 5 words) for the official HR record.")
+            # QUALITY GATE 2: Stop short junk in the Socratic reflection box
+            justification_word_count = len(justification.strip().split())
+            if justification_word_count < 5:
+                st.warning(f"⚠️ Your explanation is only {justification_word_count} word(s). Please provide a complete sentence (at least 5 words) for the official HR record.")
             else:
                 if contains_objective_markers(justification):
                     st.success("✅ Objective markers detected. Accountability metric met.")
