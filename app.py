@@ -10,8 +10,22 @@ st.set_page_config(page_title="Pedagogical Bias Analyzer", layout="wide")
 
 st.markdown("""
     <style>
-    .stApp { background-color: #0E1117; }
-    h1, h2, h3, h4, h5, h6, p, li, span, label { color: #FAFAFA !important; }
+    /* Main background & Header - Deep modern charcoal */
+    .stApp, [data-testid="stHeader"] {
+        background-color: #0E1117 !important;
+    }
+    
+    /* Sidebar background - Slightly lighter charcoal for contrast */
+    [data-testid="stSidebar"] {
+        background-color: #16181D !important;
+    }
+    
+    /* Bright, clean text */
+    h1, h2, h3, h4, h5, h6, p, li, span, label, div {
+        color: #FAFAFA !important;
+    }
+    
+    /* Style the text area to look like a premium code editor */
     .stTextArea textarea {
         background-color: #1A1C23 !important;
         color: #FFFFFF !important;
@@ -20,15 +34,20 @@ st.markdown("""
         padding: 15px;
         font-size: 16px;
     }
+    
+    /* ---------------------------------------------------
+       BUTTON OVERRIDES: Combating AI Aversion 
+       Changing defaults to calm, professional "Trust Blue"
+       --------------------------------------------------- */
     button[kind="primary"] {
-        background-color: #1E6091 !important;
+        background-color: #1E6091 !important; 
         border: 1px solid #184E77 !important;
         color: white !important;
         border-radius: 6px !important;
         transition: all 0.2s ease-in-out;
     }
     button[kind="primary"]:hover {
-        background-color: #168AAD !important;
+        background-color: #168AAD !important; 
         border: 1px solid #1A759F !important;
     }
     button[kind="secondary"] {
@@ -42,9 +61,26 @@ st.markdown("""
         border: 1px solid #4F545C !important;
         color: white !important;
     }
-    div[data-testid="stExpander"] { background-color: #1A1C23 !important; border: 1px solid #333842 !important; border-radius: 8px; }
-    div[data-testid="stInfo"] { background-color: #112338 !important; border: 1px solid #1C3B5E !important; border-radius: 8px; }
-    div[data-testid="stSuccess"] { background-color: #12291D !important; border: 1px solid #1E4631 !important; border-radius: 8px; }
+
+    /* Style the expander cards */
+    div[data-testid="stExpander"] {
+        background-color: #1A1C23 !important;
+        border: 1px solid #333842 !important;
+        border-radius: 8px;
+    }
+    /* Calm Blue Info Boxes */
+    div[data-testid="stInfo"] {
+        background-color: #112338 !important;
+        border: 1px solid #1C3B5E !important;
+        border-radius: 8px;
+    }
+    /* Positive Green Success Boxes */
+    div[data-testid="stSuccess"] {
+        background-color: #12291D !important;
+        border: 1px solid #1E4631 !important;
+        border-radius: 8px;
+    }
+    /* Hide default footer */
     footer {visibility: hidden;}
     </style>
 """, unsafe_allow_html=True)
