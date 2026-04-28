@@ -252,22 +252,26 @@ if st.session_state.analysis_done:
         justification = st.text_area("What specific, observable business behaviors led you to use these words?", height=120)
         
         if justification:
-            if contains_objective_markers(justification):
-                st.success("✅ Objective markers detected. Accountability metric met.")
-                if st.button("Submit Official Review to HR", type="primary"):
-                    st.balloons()
-                    st.toast("Official Review Submitted Successfully!", icon="✅")
-                    st.session_state.analysis_done = False
-                    st.rerun()
+            # THE NEW QUALITY GATE: Stop "meow" and single-word spam
+            if len(justification.split()) < 5:
+                st.warning("⚠️ Please provide a complete, meaningful explanation (at least 5 words) for the official HR record.")
             else:
-                st.info("ℹ️ We noticed your justification did not include objective business metrics (e.g., specific numbers, dates, or measurable outcomes).")
-                
-                liability_check = st.checkbox("I acknowledge that my subjective reasoning will be placed in the official HR record.")
-                
-                if liability_check:
-                    if st.button("Submit Official Review (With Subjective Marker)", type="primary"):
-                        st.toast("Review Submitted with Subjective Marker", icon="⚠️")
+                if contains_objective_markers(justification):
+                    st.success("✅ Objective markers detected. Accountability metric met.")
+                    if st.button("Submit Official Review to HR", type="primary"):
+                        st.balloons()
+                        st.toast("Official Review Submitted Successfully!", icon="✅")
                         st.session_state.analysis_done = False
                         st.rerun()
                 else:
-                    st.button("Submit Official Review", disabled=True)
+                    st.info("ℹ️ We noticed your justification did not include objective business metrics (e.g., specific numbers, dates, or measurable outcomes).")
+                    
+                    liability_check = st.checkbox("I acknowledge that my subjective reasoning will be placed in the official HR record.")
+                    
+                    if liability_check:
+                        if st.button("Submit Official Review (With Subjective Marker)", type="primary"):
+                            st.toast("Review Submitted with Subjective Marker", icon="⚠️")
+                            st.session_state.analysis_done = False
+                            st.rerun()
+                    else:
+                        st.button("Submit Official Review", disabled=True)
