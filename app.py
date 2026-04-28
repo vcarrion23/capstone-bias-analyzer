@@ -10,15 +10,8 @@ st.set_page_config(page_title="Pedagogical Bias Analyzer", layout="wide")
 
 st.markdown("""
     <style>
-    /* Main background - Deep modern charcoal */
-    .stApp {
-        background-color: #0E1117;
-    }
-    /* Bright, clean text */
-    h1, h2, h3, h4, h5, h6, p, li, span, label {
-        color: #FAFAFA !important;
-    }
-    /* Style the text area to look like a premium code editor */
+    .stApp { background-color: #0E1117; }
+    h1, h2, h3, h4, h5, h6, p, li, span, label { color: #FAFAFA !important; }
     .stTextArea textarea {
         background-color: #1A1C23 !important;
         color: #FFFFFF !important;
@@ -27,20 +20,15 @@ st.markdown("""
         padding: 15px;
         font-size: 16px;
     }
-    
-    /* ---------------------------------------------------
-       BUTTON OVERRIDES: Combating AI Aversion 
-       Changing defaults to calm, professional "Trust Blue"
-       --------------------------------------------------- */
     button[kind="primary"] {
-        background-color: #1E6091 !important; /* Deep, calm blue */
+        background-color: #1E6091 !important;
         border: 1px solid #184E77 !important;
         color: white !important;
         border-radius: 6px !important;
         transition: all 0.2s ease-in-out;
     }
     button[kind="primary"]:hover {
-        background-color: #168AAD !important; /* Slightly lighter on hover */
+        background-color: #168AAD !important;
         border: 1px solid #1A759F !important;
     }
     button[kind="secondary"] {
@@ -54,26 +42,9 @@ st.markdown("""
         border: 1px solid #4F545C !important;
         color: white !important;
     }
-
-    /* Style the expander cards */
-    div[data-testid="stExpander"] {
-        background-color: #1A1C23 !important;
-        border: 1px solid #333842 !important;
-        border-radius: 8px;
-    }
-    /* Calm Blue Info Boxes */
-    div[data-testid="stInfo"] {
-        background-color: #112338 !important;
-        border: 1px solid #1C3B5E !important;
-        border-radius: 8px;
-    }
-    /* Positive Green Success Boxes */
-    div[data-testid="stSuccess"] {
-        background-color: #12291D !important;
-        border: 1px solid #1E4631 !important;
-        border-radius: 8px;
-    }
-    /* Hide default footer */
+    div[data-testid="stExpander"] { background-color: #1A1C23 !important; border: 1px solid #333842 !important; border-radius: 8px; }
+    div[data-testid="stInfo"] { background-color: #112338 !important; border: 1px solid #1C3B5E !important; border-radius: 8px; }
+    div[data-testid="stSuccess"] { background-color: #12291D !important; border: 1px solid #1E4631 !important; border-radius: 8px; }
     footer {visibility: hidden;}
     </style>
 """, unsafe_allow_html=True)
@@ -100,18 +71,11 @@ if not st.session_state.authenticated:
     st.stop() 
 
 # ---------------------------------------------------------
-# 3. Load Models & Dictionaries (With Auto-Download Fix)
+# 3. Load Models & Dictionaries (CLEAN VERSION)
 # ---------------------------------------------------------
 @st.cache_resource
 def load_model():
-    try:
-        # Try to load it normally first
-        return spacy.load("en_core_web_sm")
-    except OSError:
-        # If the cloud server fails, force Python to download it directly
-        from spacy.cli import download
-        download("en_core_web_sm")
-        return spacy.load("en_core_web_sm")
+    return spacy.load("en_core_web_sm")
 
 nlp = load_model()
 
