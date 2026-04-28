@@ -1,6 +1,7 @@
 import streamlit as st
 import spacy
 import re
+import pandas as pd
 
 # ---------------------------------------------------------
 # 1. Page Configuration & Premium Enterprise Dashboard CSS
@@ -99,11 +100,18 @@ if not st.session_state.authenticated:
     st.stop() 
 
 # ---------------------------------------------------------
-# 3. Load Models & Dictionaries
+# 3. Load Models & Dictionaries (With Auto-Download Fix)
 # ---------------------------------------------------------
 @st.cache_resource
 def load_model():
-    return spacy.load("en_core_web_sm")
+    try:
+        # Try to load it normally first
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        # If the cloud server fails, force Python to download it directly
+        from spacy.cli import download
+        download("en_core_web_sm")
+        return spacy.load("en_core_web_sm")
 
 nlp = load_model()
 
