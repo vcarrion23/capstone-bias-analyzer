@@ -26,6 +26,8 @@ Initially, the system was designed as a dictatorial spellchecker. Its latest ver
 
 Longitudinal A/B testing could be conducted to compare this tool against a standard HR system across multiple rounds of reviews to evaluate its training effectiveness.
 
+## Live app password: admin123
+
 ## References
 
 - Buçinca, Z., Malaya, M. B., & Gajos, K. Z. (2021). To trust or to think: Cognitive forcing functions can reduce overreliance on AI in AI-assisted decision-making. *Proceedings of the ACM on Human-Computer Interaction, 5*(CSCW1), 1–21.
