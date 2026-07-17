@@ -26,7 +26,7 @@ Initially, the system was designed as a dictatorial spellchecker. Its latest ver
 
 Longitudinal A/B testing could be conducted to compare this tool against a standard HR system across multiple rounds of reviews to evaluate its training effectiveness.
 
-## Live app password: admin123
+## Live app password: admin123 https://capstone-bias-analyzer-globalhonors2026.streamlit.app/
 
 ## References
 
